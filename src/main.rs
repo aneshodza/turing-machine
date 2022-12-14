@@ -1,6 +1,7 @@
-use std::{io, collections::HashMap, process::exit, borrow::Borrow};
+use std::{io, collections::HashMap};
 
 mod cli_funcs;
+mod cli;
 mod utils;
 
 fn main() {
@@ -14,8 +15,6 @@ fn main() {
     }
 
     loop {
-        let memory_ref = &memory;
-        let code_ref = &code;
         let mut input = String::new();
 
         io::stdin()
@@ -26,16 +25,14 @@ fn main() {
         
         let cmd :String = String::from(input.next().unwrap_or(":h"));
         let params: Vec<&str> = input.collect();
-        
-        if cmd.eq(":q") {
-            cli_funcs::exit_code(params);
-        } else if cmd.eq(":mem") {
-            memory = cli_funcs::memory_funcs(memory_ref, params);
-        } else if cmd.eq(":src") {
-            code = cli_funcs::code_funcs(code_ref, params)
-        }
-        else {
-            cli_funcs::help();
+
+        if cmd.chars().nth(0).unwrap().eq(&":".chars().nth(0).unwrap()) {
+            cli::main(
+                cmd,
+                &mut memory,
+                &mut code,
+                params
+            )
         }
     }
 }

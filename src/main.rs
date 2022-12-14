@@ -16,11 +16,14 @@ fn main() {
             .read_line(&mut input)
             .expect("Failed to read line");
 
-        let input = input.trim().to_string();
+        let mut input = input.split_whitespace();
         
-        if input.eq(":q") {
+        let cmd :String = String::from(input.next().unwrap_or(":h"));
+        let params: Vec<&str> = input.collect();
+        
+        if cmd.eq(":q") {
             exit(0);
-        } else if input.eq(":mem") {
+        } else if cmd.eq(":mem") {
             list_storage(memory_ref);
         }
 

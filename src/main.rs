@@ -6,12 +6,11 @@ mod utils;
 fn main() {
     println!("Welcome to this small virtual CPU simulator!");
 
-    let mut memory: HashMap<String, u8> = HashMap::new();
-    let mut code: HashMap<String, &str> = HashMap::new();
+    let mut memory: HashMap<u8, u8> = HashMap::new();
+    let mut code: HashMap<u8, &str> = HashMap::new();
     for x in 0..16 {
-        let addy: String = utils::get_hex_string(x);
-        memory.insert(addy.clone(), 0);
-        code.insert(addy.clone(), "---");
+        memory.insert(x, 0);
+        code.insert(x, "---");
     }
 
     loop {
@@ -31,9 +30,9 @@ fn main() {
         if cmd.eq(":q") {
             cli_funcs::exit_code(params);
         } else if cmd.eq(":mem") {
-            cli_funcs::list_storage(memory_ref, params);
+            memory = cli_funcs::memory_funcs(memory_ref, params);
         } else if cmd.eq(":src") {
-            cli_funcs::list_code(code_ref, params)
+            code = cli_funcs::code_funcs(code_ref, params)
         }
         else {
             cli_funcs::help();

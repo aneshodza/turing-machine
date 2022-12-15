@@ -9,7 +9,7 @@ pub fn main(memory: &mut HashMap<u8, u8>, params: Vec<&str>) {
     } else if params[0] == "write" {
         memory_write(memory, params);
     } else {
-
+        println!("Couln't find that command");
     }
 }
 

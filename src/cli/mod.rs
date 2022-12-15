@@ -4,7 +4,7 @@ mod memory_funcs;
 mod code_funcs;
 
 
-pub fn main(cmd: String, memory: &mut HashMap<u8, u8>, code: &mut HashMap<u8, &str>, params: Vec<&str> ) {
+pub fn main(cmd: String, memory: &mut HashMap<u8, u8>, code: &mut HashMap<u8, String>, params: Vec<&str> ) {
     if cmd.eq(":mem") {
         memory_funcs::main(memory, params);
     } else if cmd.eq(":src") {

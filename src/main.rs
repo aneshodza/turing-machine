@@ -1,6 +1,5 @@
 use std::{io, collections::HashMap};
 
-mod cli_funcs;
 mod cli;
 mod utils;
 
@@ -8,10 +7,10 @@ fn main() {
     println!("Welcome to this small virtual CPU simulator!");
 
     let mut memory: HashMap<u8, u8> = HashMap::new();
-    let mut code: HashMap<u8, &str> = HashMap::new();
+    let mut code: HashMap<u8, String> = HashMap::new();
     for x in 0..16 {
         memory.insert(x, 0);
-        code.insert(x, "---");
+        code.insert(x, String::from("---"));
     }
 
     loop {

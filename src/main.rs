@@ -1,6 +1,5 @@
 use std::{io, collections::HashMap};
 
-mod cli_funcs;
 mod cli;
 mod utils;
 

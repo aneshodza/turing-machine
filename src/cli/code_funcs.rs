@@ -8,23 +8,26 @@ pub fn main(code: &mut HashMap<u8, String>, params: Vec<&str>) {
         code_display(code);
     } else if params[0] == "write" {
         code_write(code, params);
-    } else {
+    } else if params[0] == "clear" {
+        code_clear(code, params);
+    }
+    else {
         println!("Couln't find that command");
     }
 
 
 }
 
-pub fn code_display(code: &mut HashMap<u8, String>) {
+fn code_display(code: &mut HashMap<u8, String>) {
+    let empty_val = String::from("---");
     for x in 0..16 {
         let address = utils::get_hex_string(x);
-        let val = code.get(&x).unwrap_or(String::from("---"));
+        let val = code.get(&x).unwrap_or(&empty_val);
         println!("{}: {}", address, val);
     }
 }
 
-pub fn code_write(code: &mut HashMap<u8, String>, params: Vec<&str>) {
-    
+fn code_write(code: &mut HashMap<u8, String>, params: Vec<&str>) {    
     if params.len() != 3 {
         utils::generic_error("Wrong amount of params");
         return;
@@ -37,7 +40,20 @@ pub fn code_write(code: &mut HashMap<u8, String>, params: Vec<&str>) {
         utils::str_to_u8(params[1]),
         String::from(params[2])
     );
-    println!("Wrote value");
+    if params[2] != "---" {
+        println!("Wrote value");
+    } else {
+        println!("Cleared value");
+    }
 
+    return;
+}
+
+fn code_clear(code: &mut HashMap<u8, String>, params: Vec<&str>) {
+    if params.len() != 2 {
+        utils::generic_error("Wrong amount of params");
+        return;
+    }
+    code_write(code, vec![params[0], params[1], "---"]);
     return;
 }

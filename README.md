@@ -1,18 +1,49 @@
-
-## What does a PC have?
-### Adressable memory
-The PC needs a place where it can store and read variables. The memory needs to have an address (in HEX).
-
-### Executable coding language
-The PC needs a language to write code in. The language needs to be executable by the PC. I can write my own language for it
-
-### Input/Output
-The PC needs a way to get input from the user and a way to output data to the user. The PC needs to be able to read from the keyboard and write to the screen.
-
-### Memory for the code
-The PC needs a place to store the code. The code needs to be stored in a way that the PC can read it.
+## Welcome to my touring machine
+This project is trying to be a touring machine. I wrote it in rust (this being my first rust project), to get to know the language a bit better. The code probably has a lot of potential for improvement and PRs are welcome.
 
 ## Concept
-The PC is built as follows: It has registers for memory, which persist data (like a RAM). Those can be read and written to either with the CLI or by code.  
-Then we also have the code itself, which has memory spots. They start later (probably with 0x100), because the memory comes first. Then we have a pointer (or an eye), which stares at a certain spot in the code memory. The eye steps one address down on user command and executes that line. Maybe later implement that the eye goes by itself instead of waiting for user input.
-In the end, it more or less works like a touring machine. Code will hopefully be touring complete, but that isnt the focus in this repo.
+In this chapter I explain the concepts of the machine.
+
+### Memory
+The machine has a memort, which is adressable trough an `u8` number (0-255), which are displayed in `HEX`. The first `0x0F` characters can be printed as of now, if you write to the later ones, they will be written and stored, but not displayed. Maybe I will add a way to display them later.
+Every adress can hold an `u8` number (0-255). The memory is stored in a rust vector, which is a growable array. Every adress has the default value of `0`, but that can be set programmatically. The memory functions begin with `:mem` and are defined in the chapter about the scripting language.
+
+### Source
+The source, or code, is just like the memory, stored in a vector of `u8` numbers. The first `0x0F` can be printed as of now, if you write to the later ones, they will be written and stored, but neither displayed nor read, as the eye (next chapter) does not go further than `0x0F`. This will also hopefully change in the future. Now in every address you can store one line of code. The way the code works is a mess as of now and will need huge refactorings.
+The code functions begin with `:src` and are defined in the chapter about the scripting language.
+
+### Eye
+The eye is our pointer and also interpreter, which points to a certain address in the code. It will "look" at a certain line of code and execute it if instructed to do so. The eye functions begin with `:eye` and are defined in the chapter about the scripting language. Another thing to keep in mind is, that the `:step` functions also have to do with the eye.
+
+## Scripting language
+In this chapter I will document the scripting language that I wrote for this. Is it touring complete? Absolutely not (yet). Is it at least half-way decent? Nope.
+
+### How does it work?
+The scripting language is kind of inspired by writing bash scripts. Every command that you can write onto the `:src` you can also execute manually, because the same interpreter is used for the command line and also for the eye.
+
+### How do I use it?
+The documentation about the `:src` command will teach you on how to actually write code and have it stored. If you want to execute code, you can either write it into the `:src` and then use the `:step` command to make the eye execute it, or you can write it into the command line and execute it there.
+
+### :mem
+If you pass this function no parameters it will print the memory up until the address `0x0F`.
+
+#### :mem write <address> <value>
+This function will write the value to the address. The address has to be a `u8` number (0-255) and the value has to be a `u8` number (0-255). The address will be displayed in `HEX`, but the user input happens in `DEC`.
+
+#### :mem clear <address>
+This function will clear the value at the address. The address has to be a `u8` number (0-255). The address will be displayed in `HEX`, but the user input happens in `DEC`.
+
+### :src
+If you pass this function no parameters it will print the source up until the address `0x0F`.
+
+#### :src write <address> <value>
+This function will write the value to the address. The address has to be a `u8` number (0-255) and the value has to be a `string`. That `string` can be split by as many whitecases as it wants. It will write everything after the address. The address will be displayed in `HEX`, but the user input happens in `DEC`.
+
+#### :src clear <address>
+This function will clear the value at the address. The address has to be a `u8` number (0-255). The address will be displayed in `HEX`, but the user input happens in `DEC`.
+
+### :eye
+If you pass this function no parameters it will print the current address of the eye.
+
+### :step
+If you pass this function no parameters it will execute the line of code at the current address of the eye and then step the eye one address down.

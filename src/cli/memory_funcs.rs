@@ -36,7 +36,7 @@ fn memory_write(memory: &mut HashMap<u8, u8>, params: Vec<&str>) {
         utils::str_to_u8(params[1]),
         utils::str_to_u8(params[2])
     );
-    if (params[2] != "0") {
+    if params[2] != "0" {
         println!("Wrote value");
     } else {
         println!("Cleared value");

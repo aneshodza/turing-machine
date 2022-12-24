@@ -47,3 +47,8 @@ If you pass this function no parameters it will print the current address of the
 
 ### :step
 If you pass this function no parameters it will execute the line of code at the current address of the eye and then step the eye one address down.
+
+## Future work
+Here everything that needs to be changed is written down.
+### Change the concept of the programming language and implement a cache
+Now the functions work kind of clunky. The goal is, to atomize every function as a standalone function that mutates the value in our cache. Certain functions like the one to get from memory dont need any previous value in cache, as they overwrite it. Other functions like maybe write(5) would need a value in the cache and write the cached value to memory addres 5. Like that the code starts becoming easier to work with etc.

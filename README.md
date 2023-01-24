@@ -1,5 +1,5 @@
-## Welcome to my touring machine
-This project is trying to be a touring machine. I wrote it in rust (this being my first rust project), to get to know the language a bit better. The code probably has a lot of potential for improvement and PRs are welcome.
+## Welcome to my turing machine
+This project is trying to be a turing machine. I wrote it in rust (this being my first rust project), to get to know the language a bit better. The code probably has a lot of potential for improvement and PRs are welcome.
 
 ## Concept
 In this chapter I explain the concepts of the machine.
@@ -16,7 +16,7 @@ The code functions begin with `:src` and are defined in the chapter about the sc
 The eye is our pointer and also interpreter, which points to a certain address in the code. It will "look" at a certain line of code and execute it if instructed to do so. The eye functions begin with `:eye` and are defined in the chapter about the scripting language. Another thing to keep in mind is, that the `:step` functions also have to do with the eye.
 
 ## Scripting language
-In this chapter I will document the scripting language that I wrote for this. Is it touring complete? Absolutely not (yet). Is it at least half-way decent? Nope.
+In this chapter I will document the scripting language that I wrote for this. Is it turing complete? Absolutely not (yet). Is it at least half-way decent? Nope.
 
 ### How does it work?
 The scripting language is kind of inspired by writing bash scripts. Every command that you can write onto the `:src` you can also execute manually, because the same interpreter is used for the command line and also for the eye.
